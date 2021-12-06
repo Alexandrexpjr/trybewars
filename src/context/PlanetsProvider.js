@@ -5,6 +5,8 @@ import PlanetsContext from './PlanetsContext';
 
 function PlanetsProvider({ children }) {
   const [planets, setPlanets] = useState();
+  const [filterName, setFilterName] = useState('');
+
   useEffect(() => {
     async function fetchData() {
       const results = await fetchPlanets();
@@ -12,15 +14,22 @@ function PlanetsProvider({ children }) {
     }
     fetchData();
   }, []);
+
+  const providerValue = {
+    ...planets,
+    filterByName: { name: filterName },
+    setFilterName,
+  };
+
   return (
-    <PlanetsContext.Provider value={ planets }>
+    <PlanetsContext.Provider value={ providerValue }>
       { planets ? children : 'Loading...'}
     </PlanetsContext.Provider>
   );
 }
 
 PlanetsProvider.propTypes = {
-  children: PropTypes.element.isRequired,
+  children: PropTypes.arrayOf(PropTypes.element.isRequired).isRequired,
 };
 
 export default PlanetsProvider;
