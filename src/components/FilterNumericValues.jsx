@@ -65,13 +65,27 @@ function FilterByNumericValues() {
       {
         filterByNumericValues
           .map(({ column: current, comparison: operator, value: number }) => (
-            <span key={ Math.random().toString(hexadecimal) }>
-              {current}
-              {' '}
-              { operator }
-              {' '}
-              { number }
-            </span>
+            current
+              && (
+                <div data-testid="filter" key={ Math.random().toString(hexadecimal) }>
+                  <span>
+                    {current}
+                    {' '}
+                    { operator }
+                    {' '}
+                    { number }
+                  </span>
+                  <button
+                    type="button"
+                    onClick={ () => {
+                      setColumns(columns.filter((c) => c !== current));
+                      setFilterByNumericValues(filterByNumericValues
+                        .filter((element) => element.column !== current));
+                    } }
+                  >
+                    X
+                  </button>
+                </div>)
           ))
       }
 
