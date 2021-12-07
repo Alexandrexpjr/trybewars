@@ -2,6 +2,7 @@ import React from 'react';
 import './App.css';
 import FilterByName from './components/FilterByName';
 import FilterByNumericValues from './components/FilterNumericValues';
+import Order from './components/Order';
 import Table from './components/Table';
 import PlanetsProvider from './context/PlanetsProvider';
 
@@ -11,6 +12,7 @@ function App() {
       <h1>TrybeWars</h1>
       <FilterByName />
       <FilterByNumericValues />
+      <Order />
       <Table />
     </PlanetsProvider>
   );

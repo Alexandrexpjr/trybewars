@@ -3,7 +3,8 @@ import React, { useContext } from 'react';
 import PlanetsContext from '../context/PlanetsContext';
 
 function Table() {
-  const { data, filterByName, filterByNumericValues } = useContext(PlanetsContext);
+  const { data, filterByName, filterByNumericValues, order } = useContext(PlanetsContext);
+  const { column, sort } = order;
   const { name } = filterByName;
   const firstPlanet = Object.keys(data[0]);
   const hexadecimal = 16;
@@ -22,10 +23,21 @@ function Table() {
     }
   };
 
+  const sortColumns = (key, sortType, array) => {
+    switch (sortType) {
+    case 'ASC':
+      return array.sort((a, b) => a[key] - b[key]);
+    case 'DESC':
+      return array.sort((a, b) => b[key] - a[key]);
+    default:
+      return array;
+    }
+  };
+
   const filterPlanet = (planet) => {
     const filtersArray = [];
-    filterByNumericValues.forEach(({ column, comparison, value }) => {
-      const currentFilter = filterNumeric(planet[column], comparison, value);
+    filterByNumericValues.forEach(({ header, comparison, value }) => {
+      const currentFilter = filterNumeric(planet[header], comparison, value);
       filtersArray.push(currentFilter);
     });
     return filtersArray.every((f) => f);
@@ -46,7 +58,7 @@ function Table() {
       </thead>
       <tbody>
         {
-          data
+          sortColumns(column, sort, data)
             .filter((unfilteredPlanet) => unfilteredPlanet.name.includes(name)
               && filterPlanet(unfilteredPlanet))
             .map((planet) => {
@@ -55,9 +67,11 @@ function Table() {
               return (
                 <tr key={ Math.random() }>
                   {
-                    planetInfos.map((planetInfo) => (
-                      <td key={ (Math.random()).toString(hexadecimal) }>
-                        {' '}
+                    planetInfos.map((planetInfo, index) => (
+                      <td
+                        key={ (Math.random()).toString(hexadecimal) }
+                        data-testid={ index === 0 ? 'planet-name' : '' }
+                      >
                         { planetInfo }
                       </td>
                     ))

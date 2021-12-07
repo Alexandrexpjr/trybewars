@@ -10,6 +10,10 @@ function PlanetsProvider({ children }) {
     filterByNumericValues,
     setFilterByNumericValues,
   ] = useState([{ column: '', comparison: '', value: '' }]);
+  const [order, setOrder] = useState({
+    column: 'population',
+    sort: 'ASC',
+  });
 
   useEffect(() => {
     async function fetchData() {
@@ -25,6 +29,8 @@ function PlanetsProvider({ children }) {
     setFilterName,
     filterByNumericValues,
     setFilterByNumericValues,
+    order,
+    setOrder,
   };
 
   return (

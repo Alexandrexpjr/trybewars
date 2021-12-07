@@ -2,6 +2,9 @@ import React, { useContext, useState } from 'react';
 import PlanetsContext from '../context/PlanetsContext';
 import Select from './Select';
 
+export const filters = ['population', 'orbital_period', 'diameter',
+  'rotation_period', 'surface_water'];
+
 function FilterByNumericValues() {
   const { filterByNumericValues, setFilterByNumericValues } = useContext(PlanetsContext);
   const [column, setColumn] = useState('population');
@@ -10,9 +13,6 @@ function FilterByNumericValues() {
   const [value, setValue] = useState(0);
 
   const hexadecimal = 16;
-
-  const filters = ['population', 'orbital_period', 'diameter',
-    'rotation_period', 'surface_water'];
 
   const renderNumericFilter = (filterToRemove = ['']) => (
     <div>
