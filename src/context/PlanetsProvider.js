@@ -9,7 +9,7 @@ function PlanetsProvider({ children }) {
   const [
     filterByNumericValues,
     setFilterByNumericValues,
-  ] = useState({ column: '', comparison: '', value: '' });
+  ] = useState([{ column: '', comparison: '', value: '' }]);
 
   useEffect(() => {
     async function fetchData() {
@@ -23,7 +23,7 @@ function PlanetsProvider({ children }) {
     ...planets,
     filterByName: { name: filterName },
     setFilterName,
-    filterByNumericValues: [filterByNumericValues],
+    filterByNumericValues,
     setFilterByNumericValues,
   };
 

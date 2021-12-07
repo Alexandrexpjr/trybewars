@@ -1,26 +1,26 @@
 import React, { useContext, useState } from 'react';
 import PlanetsContext from '../context/PlanetsContext';
+import Select from './Select';
 
 function FilterByNumericValues() {
-  const { setFilterByNumericValues } = useContext(PlanetsContext);
+  const { filterByNumericValues, setFilterByNumericValues } = useContext(PlanetsContext);
   const [column, setColumn] = useState('population');
+  const [columns, setColumns] = useState([]);
   const [comparison, setComparison] = useState('maior que');
   const [value, setValue] = useState(0);
 
-  return (
+  const hexadecimal = 16;
+
+  const filters = ['population', 'orbital_period', 'diameter',
+    'rotation_period', 'surface_water'];
+
+  const renderNumericFilter = (filterToRemove = ['']) => (
     <div>
-      <select
-        name="column"
-        id="column"
-        data-testid="column-filter"
-        onChange={ ({ target }) => setColumn(target.value) }
-      >
-        <option value="population">population</option>
-        <option value="orbital_period">orbital_period</option>
-        <option value="diameter">diameter</option>
-        <option value="rotation_period">rotation_period</option>
-        <option value="surface_water">surface_water</option>
-      </select>
+      <Select
+        filterToRemove={ filterToRemove }
+        filters={ filters }
+        setColumn={ setColumn }
+      />
 
       <select
         name="comparison"
@@ -39,16 +39,42 @@ function FilterByNumericValues() {
         id="input-value"
         data-testid="value-filter"
         onChange={ ({ target }) => setValue(target.value) }
-        value="0"
+        defaultValue="0"
       />
+    </div>
+  );
+
+  return (
+    <div>
+      {
+        renderNumericFilter(columns)
+      }
 
       <button
-        onClick={ () => setFilterByNumericValues({ column, comparison, value }) }
+        onClick={ () => {
+          setFilterByNumericValues([...filterByNumericValues,
+            { column, comparison, value }]);
+          setColumns([...columns, column]);
+        } }
         data-testid="button-filter"
         type="button"
       >
         Filtrar
       </button>
+
+      {
+        filterByNumericValues
+          .map(({ column: current, comparison: operator, value: number }) => (
+            <span key={ Math.random().toString(hexadecimal) }>
+              {current}
+              {' '}
+              { operator }
+              {' '}
+              { number }
+            </span>
+          ))
+      }
+
     </div>
   );
 }

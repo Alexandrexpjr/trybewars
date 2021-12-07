@@ -5,7 +5,6 @@ import PlanetsContext from '../context/PlanetsContext';
 function Table() {
   const { data, filterByName, filterByNumericValues } = useContext(PlanetsContext);
   const { name } = filterByName;
-  const { column, comparison, value } = filterByNumericValues[0];
   const firstPlanet = Object.keys(data[0]);
   const hexadecimal = 16;
 
@@ -21,6 +20,15 @@ function Table() {
     default:
       return true;
     }
+  };
+
+  const filterPlanet = (planet) => {
+    const filtersArray = [];
+    filterByNumericValues.forEach(({ column, comparison, value }) => {
+      const currentFilter = filterNumeric(planet[column], comparison, value);
+      filtersArray.push(currentFilter);
+    });
+    return filtersArray.every((f) => f);
   };
 
   return (
@@ -40,7 +48,7 @@ function Table() {
         {
           data
             .filter((unfilteredPlanet) => unfilteredPlanet.name.includes(name)
-              && filterNumeric(unfilteredPlanet[column], comparison, value))
+              && filterPlanet(unfilteredPlanet))
             .map((planet) => {
               delete planet.residents;
               const planetInfos = Object.values(planet);
