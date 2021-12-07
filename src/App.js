@@ -8,6 +8,7 @@ import PlanetsProvider from './context/PlanetsProvider';
 function App() {
   return (
     <PlanetsProvider>
+      <h1>TrybeWars</h1>
       <FilterByName />
       <FilterByNumericValues />
       <Table />
