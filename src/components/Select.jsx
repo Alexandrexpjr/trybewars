@@ -6,7 +6,7 @@ function Select({ filterToRemove, filters, setColumn }) {
 
   useEffect(() => {
     setColumn(filteredFilters[0]);
-  }, [filteredFilters, setColumn]);
+  }, []);
 
   return (
     <select
