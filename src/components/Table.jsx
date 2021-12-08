@@ -30,13 +30,19 @@ function Table() {
     case 'DESC':
       return array.sort((a, b) => b[key] - a[key]);
     default:
-      return array;
+
+      return array.sort((a, b) => {
+        const minusOne = -1;
+        if (a.name < b.name) { return minusOne; }
+        if (a.name > b.name) { return 1; }
+        return 0;
+      });
     }
   };
 
   const filterPlanet = (planet) => {
     const filtersArray = [];
-    filterByNumericValues.forEach(({ header, comparison, value }) => {
+    filterByNumericValues.forEach(({ column: header, comparison, value }) => {
       const currentFilter = filterNumeric(planet[header], comparison, value);
       filtersArray.push(currentFilter);
     });

@@ -11,8 +11,8 @@ function PlanetsProvider({ children }) {
     setFilterByNumericValues,
   ] = useState([{ column: '', comparison: '', value: '' }]);
   const [order, setOrder] = useState({
-    column: 'population',
-    sort: 'ASC',
+    column: '',
+    sort: '',
   });
 
   useEffect(() => {
