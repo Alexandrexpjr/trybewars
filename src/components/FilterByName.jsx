@@ -11,6 +11,7 @@ function FilterByName() {
       id="filter-name"
       onChange={ ({ target }) => setFilterName(target.value) }
       data-testid="name-filter"
+      placeholder='Search by name'
     />
   );
 }

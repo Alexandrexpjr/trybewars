@@ -12,11 +12,11 @@ function Table() {
   const filterNumeric = (key, operator, number) => {
     const basis = 10;
     switch (operator) {
-    case 'maior que':
+    case 'greater than':
       return parseInt(key, basis) > parseInt(number, basis);
-    case 'menor que':
+    case 'less than':
       return parseInt(key, basis) < parseInt(number, basis);
-    case 'igual a':
+    case 'equals':
       return parseInt(key, basis) === parseInt(number, basis);
     default:
       return true;
@@ -78,7 +78,10 @@ function Table() {
                         key={ (Math.random()).toString(hexadecimal) }
                         data-testid={ index === 0 ? 'planet-name' : '' }
                       >
-                        { planetInfo }
+                        {
+                          typeof(planetInfo) == 'object' ? <ul className='movie-list'>{planetInfo.map((mov) => <li>{mov}</li>)}</ul> :
+                          planetInfo
+                        }
                       </td>
                     ))
                   }

@@ -24,18 +24,20 @@ function Order() {
           ))
         }
       </select>
-      <span>Crescente</span>
+      <span>Crescent</span>
       <input
         type="radio"
+        className='radio-btn'
         name="order"
         value="ASC"
         data-testid="column-sort-input-asc"
         onChange={ handleRadioChange }
       />
 
-      <span>Decrescente</span>
+      <span>Decrescent</span>
       <input
         type="radio"
+        className='radio-btn'
         name="order"
         value="DESC"
         data-testid="column-sort-input-desc"

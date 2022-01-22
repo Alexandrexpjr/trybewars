@@ -9,7 +9,7 @@ function FilterByNumericValues() {
   const { filterByNumericValues, setFilterByNumericValues } = useContext(PlanetsContext);
   const [column, setColumn] = useState('population');
   const [columns, setColumns] = useState([]);
-  const [comparison, setComparison] = useState('maior que');
+  const [comparison, setComparison] = useState('greater than');
   const [value, setValue] = useState(0);
 
   const hexadecimal = 16;
@@ -28,9 +28,9 @@ function FilterByNumericValues() {
         data-testid="comparison-filter"
         onChange={ ({ target }) => setComparison(target.value) }
       >
-        <option value="maior que">maior que</option>
-        <option value="menor que">menor que</option>
-        <option value="igual a">igual a</option>
+        <option value="greater than">greater than</option>
+        <option value="less than">less than</option>
+        <option value="equals">equals</option>
       </select>
 
       <input
@@ -41,14 +41,6 @@ function FilterByNumericValues() {
         onChange={ ({ target }) => setValue(target.value) }
         defaultValue="0"
       />
-    </div>
-  );
-
-  return (
-    <div>
-      {
-        renderNumericFilter(columns)
-      }
 
       <button
         onClick={ () => {
@@ -59,8 +51,16 @@ function FilterByNumericValues() {
         data-testid="button-filter"
         type="button"
       >
-        Filtrar
+        Filter
       </button>
+    </div>
+  );
+
+  return (
+    <div>
+      {
+        renderNumericFilter(columns)
+      }
 
       {
         filterByNumericValues
@@ -68,7 +68,7 @@ function FilterByNumericValues() {
             current
               && (
                 <div data-testid="filter" key={ Math.random().toString(hexadecimal) }>
-                  <span>
+                  <span className='current-filter-span'>
                     {current}
                     {' '}
                     { operator }
@@ -77,6 +77,7 @@ function FilterByNumericValues() {
                   </span>
                   <button
                     type="button"
+                    className='current-filter-delete-btn'
                     onClick={ () => {
                       setColumns(columns.filter((c) => c !== current));
                       setFilterByNumericValues(filterByNumericValues

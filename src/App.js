@@ -10,9 +10,11 @@ function App() {
   return (
     <PlanetsProvider>
       <h1>TrybeWars</h1>
-      <FilterByName />
-      <FilterByNumericValues />
-      <Order />
+      <div id='filters-div'>
+        <FilterByName />
+        <FilterByNumericValues />
+        <Order />
+      </div>
       <Table />
     </PlanetsProvider>
   );
